@@ -5,19 +5,18 @@ import json
 import uuid
 from flask import Flask, request, render_template, redirect, url_for, flash
 from werkzeug.utils import secure_filename
-from datetime import datetime # Import datetime module
-
-# Initialize the Flask application
-app = Flask(__name__)
-# A secret key is required for Flask's flash messaging, though not strictly needed for this feature.
-# It's good practice for any Flask app.
-app.secret_key = 'your_super_secret_key_here' # Replace with a strong, random key in a real app
+from datetime import datetime
 
 # --- Configuration ---
 # Directory where uploaded files will be stored
 UPLOAD_FOLDER = 'uploads'
 # File where form responses (metadata) will be stored
 RESPONSES_FILE = 'responses.json'
+
+# Initialize the Flask application
+# Configure Flask to serve files from the 'uploads' folder as static files
+app = Flask(__name__, static_folder=UPLOAD_FOLDER, static_url_path='/uploads')
+app.secret_key = 'your_super_secret_key_here' # Replace with a strong, random key in a real app
 
 # Ensure the upload folder exists
 if not os.path.exists(UPLOAD_FOLDER):
@@ -79,7 +78,7 @@ def index():
             'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'question1': question1_answer,
             'question2': question2_answer,
-            'uploaded_file': file_path, # Store the path to the saved file
+            'uploaded_file': file_path, # Store the full path to the saved file
             'original_filename': uploaded_file.filename if uploaded_file else None
         }
 
@@ -122,8 +121,7 @@ def clear_responses():
                     os.unlink(file_path) # Remove the file or link
                 elif os.path.isdir(file_path):
                     # If there are subdirectories (unlikely for this app, but good practice)
-                    # shutil.rmtree(file_path) # Requires 'import shutil'
-                    pass # For this simple app, we assume no subdirectories
+                    pass
             except Exception as e:
                 print(f'Failed to delete {file_path}. Reason: {e}')
         
@@ -131,7 +129,7 @@ def clear_responses():
     except Exception as e:
         flash(f'An error occurred while clearing responses: {e}', 'error')
     
-    return redirect(url_for('view_responses')) # Redirect back to the responses page
+    return redirect(url_for('view_responses'))
 
 @app.route('/delete_response/<response_id>', methods=['POST'])
 def delete_response(response_id):
@@ -165,6 +163,4 @@ def delete_response(response_id):
 
 # --- Main Execution ---
 if __name__ == '__main__':
-    # Run the Flask development server
-    # debug=True allows for automatic reloading on code changes and provides a debugger
     app.run(debug=True)
