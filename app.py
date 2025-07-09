@@ -3,12 +3,15 @@
 import os
 import json
 import uuid
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from datetime import datetime # Import datetime module
 
 # Initialize the Flask application
 app = Flask(__name__)
+# A secret key is required for Flask's flash messaging, though not strictly needed for this feature.
+# It's good practice for any Flask app.
+app.secret_key = 'your_super_secret_key_here' # Replace with a strong, random key in a real app
 
 # --- Configuration ---
 # Directory where uploaded files will be stored
@@ -100,7 +103,6 @@ def view_responses():
     # Pass the UPLOAD_FOLDER to the template to construct file links
     return render_template('responses.html', responses=all_responses, upload_folder=UPLOAD_FOLDER)
 
-
 @app.route('/clear_responses', methods=['POST'])
 def clear_responses():
     """
@@ -131,6 +133,35 @@ def clear_responses():
     
     return redirect(url_for('view_responses')) # Redirect back to the responses page
 
+@app.route('/delete_response/<response_id>', methods=['POST'])
+def delete_response(response_id):
+    """
+    Deletes a single response and its associated uploaded file.
+    """
+    all_responses = load_responses()
+    response_found = False
+    updated_responses = []
+    
+    for response in all_responses:
+        if response['id'] == response_id:
+            response_found = True
+            # If there's an associated file, delete it from the uploads folder
+            if response.get('uploaded_file') and os.path.exists(response['uploaded_file']):
+                try:
+                    os.unlink(response['uploaded_file'])
+                    print(f"Deleted file: {response['uploaded_file']}")
+                except Exception as e:
+                    print(f"Error deleting file {response['uploaded_file']}: {e}")
+            flash(f'Response "{response_id}" and its file (if any) have been deleted.', 'success')
+        else:
+            updated_responses.append(response) # Keep responses that are not being deleted
+
+    if response_found:
+        save_responses(updated_responses)
+    else:
+        flash(f'Response with ID "{response_id}" not found.', 'error')
+
+    return redirect(url_for('view_responses'))
 
 # --- Main Execution ---
 if __name__ == '__main__':
