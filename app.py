@@ -59,6 +59,13 @@ def index():
         # Get form data
         question1_answer = request.form.get('question1', '').strip()
         question2_answer = request.form.get('question2', '').strip()
+        
+        # New: Get answers for the new questions
+        multiple_option_answer = request.form.get('multiple_option', '').strip()
+        yes_no_answer = request.form.get('yes_no_question', '').strip()
+        # For checkboxes, use getlist to get all selected values
+        checkbox_answers = request.form.getlist('checkbox_options') 
+
         uploaded_file = request.files.get('file_upload')
 
         file_path = None
@@ -78,6 +85,9 @@ def index():
             'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'question1': question1_answer,
             'question2': question2_answer,
+            'multiple_option_answer': multiple_option_answer, # New field
+            'yes_no_answer': yes_no_answer,                   # New field
+            'checkbox_answers': checkbox_answers,             # New field (list of strings)
             'uploaded_file': file_path, # Store the full path to the saved file
             'original_filename': uploaded_file.filename if uploaded_file else None
         }

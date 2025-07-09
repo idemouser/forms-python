@@ -51,6 +51,12 @@
                     <div class="space-y-2 mb-4">
                         <p><strong class="text-gray-700">Question 1:</strong> {{ response.question1 }}</p>
                         <p><strong class="text-gray-700">Question 2:</strong> {{ response.question2 }}</p>
+                        {# New: Display for Multiple Option Question #}
+                        <p><strong class="text-gray-700">Question 3 (Preferred Travel Mode):</strong> {{ response.multiple_option_answer | default('N/A') }}</p>
+                        {# New: Display for Yes/No Question #}
+                        <p><strong class="text-gray-700">Question 4 (Enjoy Coding):</strong> {{ response.yes_no_answer | default('N/A') }}</p>
+                        {# New: Display for Checkbox Question (join list with comma) #}
+                        <p><strong class="text-gray-700">Question 5 (Liked Fruits):</strong> {{ response.checkbox_answers | join(', ') | default('None selected') }}</p>
                     </div>
 
                     {% if response.uploaded_file %}

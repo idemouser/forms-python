@@ -35,6 +35,73 @@
                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
             </div>
 
+            {# New: Multiple Option Question (Radio Buttons) #}
+            <div>
+                <label class="block text-gray-700 text-sm font-semibold mb-2">
+                    Question 3: What is your preferred mode of travel?
+                </label>
+                <div class="mt-2 space-y-2">
+                    <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio text-blue-600" name="multiple_option" value="Car" required>
+                        <span class="ml-2 text-gray-700">Car</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" class="form-radio text-blue-600" name="multiple_option" value="Train">
+                        <span class="ml-2 text-gray-700">Train</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" class="form-radio text-blue-600" name="multiple_option" value="Airplane">
+                        <span class="ml-2 text-gray-700">Airplane</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" class="form-radio text-blue-600" name="multiple_option" value="Bicycle">
+                        <span class="ml-2 text-gray-700">Bicycle</span>
+                    </label>
+                </div>
+            </div>
+
+            {# New: Yes/No Question (Radio Buttons) #}
+            <div>
+                <label class="block text-gray-700 text-sm font-semibold mb-2">
+                    Question 4: Do you enjoy coding?
+                </label>
+                <div class="mt-2 space-x-4">
+                    <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio text-blue-600" name="yes_no_question" value="Yes" required>
+                        <span class="ml-2 text-gray-700">Yes</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio text-blue-600" name="yes_no_question" value="No">
+                        <span class="ml-2 text-gray-700">No</span>
+                    </label>
+                </div>
+            </div>
+
+            {# New: Checkbox Question (Multiple Selections) #}
+            <div>
+                <label class="block text-gray-700 text-sm font-semibold mb-2">
+                    Question 5: Which of these fruits do you like? (Select all that apply)
+                </label>
+                <div class="mt-2 space-y-2">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" class="form-checkbox text-blue-600" name="checkbox_options" value="Apple">
+                        <span class="ml-2 text-gray-700">Apple</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="checkbox" class="form-checkbox text-blue-600" name="checkbox_options" value="Banana">
+                        <span class="ml-2 text-gray-700">Banana</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="checkbox" class="form-checkbox text-blue-600" name="checkbox_options" value="Orange">
+                        <span class="ml-2 text-gray-700">Orange</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="checkbox" class="form-checkbox text-blue-600" name="checkbox_options" value="Grapes">
+                        <span class="ml-2 text-gray-700">Grapes</span>
+                    </label>
+                </div>
+            </div>
+
             <div>
                 <label for="file_upload" class="block text-gray-700 text-sm font-semibold mb-2">
                     Upload a file (Optional):
