@@ -1,0 +1,57 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Response</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Submit Your Response</h1>
+
+        <form action="/" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <div>
+                <label for="question1" class="block text-gray-700 text-sm font-semibold mb-2">
+                    Question 1: What is your favorite color?
+                </label>
+                <input type="text" id="question1" name="question1" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label for="question2" class="block text-gray-700 text-sm font-semibold mb-2">
+                    Question 2: Describe your ideal weekend.
+                </label>
+                <textarea id="question2" name="question2" rows="4" required
+                          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
+            </div>
+
+            <div>
+                <label for="file_upload" class="block text-gray-700 text-sm font-semibold mb-2">
+                    Upload a file (Optional):
+                </label>
+                <input type="file" id="file_upload" name="file_upload"
+                       class="w-full text-gray-700 bg-gray-50 border border-gray-300 rounded-md py-2 px-4 cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 ease-in-out shadow-md hover:shadow-lg">
+                Submit Response
+            </button>
+        </form>
+
+        <div class="mt-6 text-center">
+            <a href="/responses" class="text-blue-600 hover:underline font-medium">View All Responses</a>
+        </div>
+    </div>
+</body>
+</html>
